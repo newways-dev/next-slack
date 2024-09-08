@@ -1,4 +1,5 @@
 import { ConvexClientProvider } from '@/components/convex-client-provider'
+import { ConvexAuthNextjsServerProvider } from '@convex-dev/auth/nextjs/server'
 import './globals.css'
 
 export default function RootLayout({
@@ -7,10 +8,12 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang='en'>
-      <body>
-        <ConvexClientProvider>{children}</ConvexClientProvider>
-      </body>
-    </html>
+    <ConvexAuthNextjsServerProvider>
+      <html lang='en'>
+        <body>
+          <ConvexClientProvider>{children}</ConvexClientProvider>
+        </body>
+      </html>
+    </ConvexAuthNextjsServerProvider>
   )
 }
