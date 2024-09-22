@@ -5,18 +5,20 @@ import { useCurrentMember } from '@/features/members/api/use-current-member'
 import { useGetWorkspace } from '@/features/workspaces/api/use-get-workspace'
 import { WorkspaceHeader } from './workspace-header'
 import { SidebarItem } from './sidebar-item'
-import { UseGetChannels } from '@/features/channels/api/use-get-channels'
+import { useGetChannels } from '@/features/channels/api/use-get-channels'
 import { WorkspaceSection } from './workspace-section'
 import { useGetMembers } from '@/features/members/api/use-get-members'
 import { UserItem } from './user-item'
+import { useChannelId } from '@/hooks/use-channel-id'
 
 export const WorkspaceSidebar = () => {
-  const workspaceId = useWorkspaceId()
   const [_open, setOpen] = useCreateChannelModal()
+  const workspaceId = useWorkspaceId()
+  const channelId = useChannelId()
 
   const { data: member, isLoading: memberLoading } = useCurrentMember({ workspaceId })
   const { data: workspace, isLoading: workspaceLoading } = useGetWorkspace({ id: workspaceId })
-  const { data: channels, isLoading: channelsLoading } = UseGetChannels({ workspaceId })
+  const { data: channels, isLoading: channelsLoading } = useGetChannels({ workspaceId })
   const { data: members, isLoading: membersLoading } = useGetMembers({ workspaceId })
 
   if (workspaceLoading || memberLoading) {
@@ -43,11 +45,25 @@ export const WorkspaceSidebar = () => {
         <SidebarItem variant='active' label='Threads' icon={MessageSquareText} id='threads' />
         <SidebarItem variant='default' label='Drafts & sent' icon={SendHorizonal} id='drafts' />
       </div>
-      <WorkspaceSection label='Channels' hint='New channel' onNew={member.role === 'admin' ? () => setOpen(true) : undefined}>
-        {channels?.map((item) => <SidebarItem key={item._id} icon={HashIcon} label={item.name} id={item._id} />)}
+      <WorkspaceSection
+        label='Channels'
+        hint='New channel'
+        onNew={member.role === 'admin' ? () => setOpen(true) : undefined}
+      >
+        {channels?.map((item) => (
+          <SidebarItem
+            key={item._id}
+            icon={HashIcon}
+            label={item.name}
+            id={item._id}
+            variant={channelId === item._id ? 'active' : 'default'}
+          />
+        ))}
       </WorkspaceSection>
       <WorkspaceSection label='Direct Messages' hint='New direct message' onNew={() => {}}>
-        {members?.map((item) => <UserItem id={item._id} key={item._id} label={item.user.name} image={item.user.image} />)}
+        {members?.map((item) => (
+          <UserItem id={item._id} key={item._id} label={item.user.name} image={item.user.image} />
+        ))}
       </WorkspaceSection>
     </div>
   )
