@@ -1,4 +1,5 @@
 import { AlertTriangle, HashIcon, Loader, MessageSquareText, SendHorizonal } from 'lucide-react'
+import { useCreateChannelModal } from '@/features/channels/store/use-create-channel-modal'
 import { useWorkspaceId } from '@/hooks/use-workspace-id'
 import { useCurrentMember } from '@/features/members/api/use-current-member'
 import { useGetWorkspace } from '@/features/workspaces/api/use-get-workspace'
@@ -11,6 +12,7 @@ import { UserItem } from './user-item'
 
 export const WorkspaceSidebar = () => {
   const workspaceId = useWorkspaceId()
+  const [_open, setOpen] = useCreateChannelModal()
 
   const { data: member, isLoading: memberLoading } = useCurrentMember({ workspaceId })
   const { data: workspace, isLoading: workspaceLoading } = useGetWorkspace({ id: workspaceId })
@@ -41,7 +43,7 @@ export const WorkspaceSidebar = () => {
         <SidebarItem variant='active' label='Threads' icon={MessageSquareText} id='threads' />
         <SidebarItem variant='default' label='Drafts & sent' icon={SendHorizonal} id='drafts' />
       </div>
-      <WorkspaceSection label='Channels' hint='New channel' onNew={() => {}}>
+      <WorkspaceSection label='Channels' hint='New channel' onNew={member.role === 'admin' ? () => setOpen(true) : undefined}>
         {channels?.map((item) => <SidebarItem key={item._id} icon={HashIcon} label={item.name} id={item._id} />)}
       </WorkspaceSection>
       <WorkspaceSection label='Direct Messages' hint='New direct message' onNew={() => {}}>
