@@ -10,8 +10,8 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
-import { useRemoveWorkspace } from '@/features/workspaces/api/user-remove-workspace'
-import { useUpdateWorkspace } from '@/features/workspaces/api/user-update-workspace'
+import { useRemoveWorkspace } from '@/features/workspaces/api/use-remove-workspace'
+import { useUpdateWorkspace } from '@/features/workspaces/api/use-update-workspace'
 import { useWorkspaceId } from '@/hooks/use-workspace-id'
 import { useRouter } from 'next/navigation'
 import { TrashIcon } from 'lucide-react'
