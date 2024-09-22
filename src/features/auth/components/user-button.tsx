@@ -1,12 +1,7 @@
 'use client'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { UseCurrentUser } from '../api/user-current-user'
 import { Loader, LogOutIcon } from 'lucide-react'
 import { useAuthActions } from '@convex-dev/auth/react'
@@ -30,11 +25,9 @@ export const UserButton = () => {
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger className='outline-none relative'>
-        <Avatar className='size-10 hover:opacity-75 transition'>
-          <AvatarImage alt={name} src={image} />
-          <AvatarFallback className='text-sky-500'>
-            {avatarFallback}
-          </AvatarFallback>
+        <Avatar className='rounded-md size-10 hover:opacity-75 transition'>
+          <AvatarImage className='rounded-md' alt={name} src={image} />
+          <AvatarFallback className='rounded-md text-sky-500'>{avatarFallback}</AvatarFallback>
         </Avatar>
         <DropdownMenuContent align='center' side='right' className='w-60'>
           <DropdownMenuItem onClick={() => signOut()} className='h-10'>

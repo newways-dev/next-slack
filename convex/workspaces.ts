@@ -29,6 +29,7 @@ export const create = mutation({
     })
 
     await context.db.insert('members', { userId, workspaceId, role: 'admin' })
+    await context.db.insert('channels', { name: 'general', workspaceId })
 
     return workspaceId
   },

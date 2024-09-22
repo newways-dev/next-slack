@@ -22,13 +22,11 @@ export const WorkspaceSwitcher = () => {
     id: workspaceId,
   })
 
-  const filteredWorkspaces = workspaces?.filter(
-    (workspace) => workspace._id !== workspaceId
-  )
+  const filteredWorkspaces = workspaces?.filter((workspace) => workspace._id !== workspaceId)
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger className='ml-4' asChild>
         <Button className='size-9 relative overflow-hidden bg-[#ABABAD] hover:bg-[#ABABAD]/80 text-slate-800 font-semibold text-lg'>
           {workspaceLoading ? (
             <Loader className='size-5 animate-spin shrink-0' />
@@ -43,9 +41,7 @@ export const WorkspaceSwitcher = () => {
           className='cursor-pointer flex-col justify-start items-start capitalize'
         >
           {workspace?.name}
-          <span className='text-sm text-muted-foreground'>
-            Active workspace
-          </span>
+          <span className='text-sm text-muted-foreground'>Active workspace</span>
         </DropdownMenuItem>
         {filteredWorkspaces?.map((workspace) => (
           <DropdownMenuItem
@@ -59,10 +55,7 @@ export const WorkspaceSwitcher = () => {
             <p className='truncate'>{workspace.name}</p>
           </DropdownMenuItem>
         ))}
-        <DropdownMenuItem
-          className='cursor-pointer'
-          onClick={() => setOpen(true)}
-        >
+        <DropdownMenuItem className='cursor-pointer' onClick={() => setOpen(true)}>
           <div className='size-9 relative overflow-hidden bg-[#F2F2F2] text-slate-800 font-semibold text-lg rounded-md flex items-center justify-center mr-2'>
             <Plus />
           </div>
