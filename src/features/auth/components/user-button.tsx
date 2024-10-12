@@ -1,8 +1,13 @@
 'use client'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
-import { UseCurrentUser } from '../api/user-current-user'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import { UseCurrentUser } from '../api/use-current-user'
 import { Loader, LogOutIcon } from 'lucide-react'
 import { useAuthActions } from '@convex-dev/auth/react'
 
