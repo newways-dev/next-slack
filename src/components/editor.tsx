@@ -1,10 +1,11 @@
 import Quill, { QuillOptions } from 'quill'
 import 'quill/dist/quill.snow.css'
 import { MutableRefObject, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { ImageIcon, Smile } from 'lucide-react'
+import { EmojiPopover } from './emoji-popover'
 import { Button } from './ui/button'
 import { PiTextAa } from 'react-icons/pi'
 import { MdSend } from 'react-icons/md'
-import { ImageIcon, Smile } from 'lucide-react'
 import { Hint } from './hint'
 import Delta, { Op } from 'quill-delta'
 import { cn } from '@/lib/utils'
@@ -126,6 +127,11 @@ const Editor = ({
     }
   }
 
+  const onEmojiSelect = (emoji: any) => {
+    const quill = quillRef.current
+    quill?.insertText(quill?.getSelection()?.index || 0, emoji.native)
+  }
+
   const isEmpty = text.replace(/<(.|\n)*?>/g, '').trim().length === 0
 
   return (
@@ -141,11 +147,11 @@ const Editor = ({
               <PiTextAa className='size-4' />
             </Button>
           </Hint>
-          <Hint label='Emoji'>
-            <Button disabled={disabled} size='iconSm' variant='ghost' onClick={() => {}}>
+          <EmojiPopover onEmojiSelect={onEmojiSelect}>
+            <Button disabled={disabled} size='iconSm' variant='ghost'>
               <Smile className='size-4' />
             </Button>
-          </Hint>
+          </EmojiPopover>
           {variant === 'create' && (
             <Hint label='Image'>
               <Button disabled={disabled} size='iconSm' variant='ghost' onClick={() => {}}>
